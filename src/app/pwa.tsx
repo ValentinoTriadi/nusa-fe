@@ -193,7 +193,7 @@ export function InstallPrompt() {
         <p className="text-sm text-gray-600">
           Install prompt not available. This may be because:
           <br />• The app is already installed
-          <br />• The browser doesn't support installation
+          <br />• The browser doesn&apos;t support installation
           <br />• The PWA criteria are not met
         </p>
       </div>
