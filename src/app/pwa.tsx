@@ -1,5 +1,6 @@
 'use client';
 
+import console from 'console';
 import { useEffect, useState } from 'react';
 
 import { sendNotification, subscribeUser, unsubscribeUser } from './actions';
@@ -120,9 +121,18 @@ export function PushNotificationManager() {
   );
 }
 
+// PWA Install Prompt
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+}
+
 export function InstallPrompt() {
   const [isIOS, setIsIOS] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsIOS(
@@ -133,6 +143,37 @@ export function InstallPrompt() {
     setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
   }, []);
 
+  useEffect(() => {
+    const handler = (e: Event) => {
+      // Cast event to our custom type
+      const event = e as BeforeInstallPromptEvent;
+      event.preventDefault();
+      setDeferredPrompt(event);
+      setIsVisible(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+
+    // Show install prompt
+    await deferredPrompt.prompt();
+
+    // Wait for user response
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to install prompt: ${outcome}`);
+
+    // Reset prompt
+    setDeferredPrompt(null);
+    setIsVisible(false);
+  };
+
   if (isStandalone) {
     return null; // Don't show install button if already installed
   }
@@ -141,12 +182,7 @@ export function InstallPrompt() {
     <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md">
       <h3 className="mb-4 text-xl font-semibold text-gray-800">Install App</h3>
       <button
-        onClick={() => {
-          if (!isIOS && 'serviceWorker' in navigator) {
-            // For browsers that support beforeinstallprompt
-            window.dispatchEvent(new Event('beforeinstallprompt'));
-          }
-        }}
+        onClick={handleInstallClick}
         className="mb-4 w-full rounded-md bg-blue-500 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-600"
       >
         Add to Home Screen
