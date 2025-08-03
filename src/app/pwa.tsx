@@ -147,11 +147,13 @@ export function InstallPrompt() {
       // Cast event to our custom type
       const event = e as BeforeInstallPromptEvent;
       event.preventDefault();
+      console.log('beforeinstallprompt event fired');
       setDeferredPrompt(event);
       setIsVisible(true);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
+    console.log('beforeinstallprompt listener added');
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
@@ -159,7 +161,11 @@ export function InstallPrompt() {
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
+    console.log('Install button clicked');
+    if (!deferredPrompt) {
+      console.log('No deferred prompt available');
+      return;
+    }
 
     // Show install prompt
     await deferredPrompt.prompt();
@@ -177,12 +183,30 @@ export function InstallPrompt() {
     return null; // Don't show install button if already installed
   }
 
+  // Only show the component if install prompt is available or on iOS
+  if (!isVisible && !isIOS) {
+    return (
+      <div className="mx-auto max-w-md rounded-lg bg-gray-100 p-6 shadow-md">
+        <h3 className="mb-4 text-xl font-semibold text-gray-800">
+          Install App
+        </h3>
+        <p className="text-sm text-gray-600">
+          Install prompt not available. This may be because:
+          <br />• The app is already installed
+          <br />• The browser doesn't support installation
+          <br />• The PWA criteria are not met
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md">
       <h3 className="mb-4 text-xl font-semibold text-gray-800">Install App</h3>
       <button
         onClick={handleInstallClick}
-        className="mb-4 w-full rounded-md bg-blue-500 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-600"
+        disabled={!deferredPrompt && !isIOS}
+        className="mb-4 w-full rounded-md bg-blue-500 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-gray-400"
       >
         Add to Home Screen
       </button>
