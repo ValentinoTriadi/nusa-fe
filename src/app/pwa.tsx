@@ -1,6 +1,5 @@
 'use client';
 
-import console from 'console';
 import { useEffect, useState } from 'react';
 
 import { sendNotification, subscribeUser, unsubscribeUser } from './actions';
