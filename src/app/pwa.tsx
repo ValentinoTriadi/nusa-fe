@@ -126,7 +126,8 @@ export function InstallPrompt() {
 
   useEffect(() => {
     setIsIOS(
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream,
+      /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+        !(window as Window & { MSStream?: unknown }).MSStream,
     );
 
     setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
@@ -157,7 +158,7 @@ export function InstallPrompt() {
             <span role="img" aria-label="share icon" className="mx-1">
               ⎋
             </span>
-            and then "Add to Home Screen"
+            and then &ldquot;Add to Home Screen&rdquot;
             <span role="img" aria-label="plus icon" className="mx-1">
               ➕
             </span>
