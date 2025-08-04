@@ -20,7 +20,7 @@ const LoginPage = () => {
       {/* Logo */}
       <div className="flex h-full w-full items-center justify-center">
         <Image
-          src="/web-app-manifest-512x512.png"
+          src="/logo.png"
           alt="Logo"
           width={128}
           height={128}
