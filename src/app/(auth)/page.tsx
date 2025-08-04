@@ -9,7 +9,7 @@ export default function HomePage() {
   const ownerName = 'Budi';
   const company = 'CV Maju Jaya';
   return (
-    <div className="bg-background flex min-h-screen w-full flex-col items-center gap-8 overflow-y-scroll pt-0 pb-16">
+    <div className="bg-background flex min-h-screen w-full flex-col items-center gap-8 overflow-y-scroll pt-0 pb-20">
       {/* Hero Section */}
       <div className="relative w-full max-w-md overflow-hidden rounded-br-3xl">
         <Image
