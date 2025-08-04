@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ProductCard } from '@/components/pages/marketplace/product-card';
 import { SearchFilter } from '@/components/pages/marketplace/search-filter';
@@ -14,6 +14,38 @@ export const MarketplaceClient = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState('price_asc');
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [isSearchVisible, setIsSearchVisible] = useState(true);
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return;
+
+      const currentScrollY = scrollContainerRef.current.scrollTop;
+      const scrollDirection =
+        currentScrollY > lastScrollY.current ? 'down' : 'up';
+
+      // Only hide/show if scrolled more than 10px to avoid jittery behavior
+      if (Math.abs(currentScrollY - lastScrollY.current) > 10) {
+        if (scrollDirection === 'down' && currentScrollY > 50) {
+          setIsSearchVisible(false);
+        } else if (scrollDirection === 'up' || currentScrollY < 50) {
+          setIsSearchVisible(true);
+        }
+        lastScrollY.current = currentScrollY;
+      }
+    };
+
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll, {
+        passive: true,
+      });
+      return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
 
   const handleToggleFavorite = (productId: string) => {
     setFavorites((prev) =>
@@ -51,12 +83,18 @@ export const MarketplaceClient = () => {
   return (
     <div className="bg-background flex h-screen w-full flex-col pb-16">
       {/* Header */}
-      <div className="flex-shrink-0 bg-white px-4 py-6">
+      <div className="z-20 flex-shrink-0 bg-white px-4 py-6">
         <h1 className="text-2xl font-bold text-gray-900">Marketplace</h1>
       </div>
 
       {/* Search and Filters */}
-      <div className="flex-shrink-0">
+      <div
+        className={`flex-shrink-0 overflow-hidden transition-all duration-300 ease-in-out ${
+          isSearchVisible
+            ? 'max-h-96 translate-y-0 opacity-100'
+            : 'max-h-0 -translate-y-full opacity-0'
+        }`}
+      >
         <SearchFilter
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
@@ -73,7 +111,10 @@ export const MarketplaceClient = () => {
       </div>
 
       {/* Content */}
-      <div className="min-h-0 flex-1 overflow-y-auto p-4">
+      <div
+        ref={scrollContainerRef}
+        className="min-h-0 flex-1 overflow-y-auto p-4"
+      >
         {activeTab === 'produk' ? (
           <div className="space-y-3">
             {filteredProducts.map((product) => (
