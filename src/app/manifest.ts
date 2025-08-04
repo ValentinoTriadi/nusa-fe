@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'A Progressive Web App for connecting local SMEs in Indonesia',
     start_url: '/',
     display: 'standalone',
-    background_color: '#F9F9F9',
-    theme_color: '#ff5c02',
+    background_color: '#ff5c02',
+    theme_color: '#F9F9F9',
     icons: [
       {
         src: '/favicon-16x16.png',
