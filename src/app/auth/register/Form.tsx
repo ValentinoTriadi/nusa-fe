@@ -3,9 +3,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import z from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
@@ -17,6 +17,8 @@ export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showKonfirmasiPassword, setShowKonfirmasiPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const form = useForm<RegisterFormType>({
     resolver: zodResolver(registerFormSchema),
@@ -38,14 +40,11 @@ export const RegisterForm = () => {
     setIsLoading(true);
 
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Here you would typically make an API call to authenticate
       console.log('Register attempt:', values);
 
-      // Redirect to dashboard or home page
-      // router.push('/dashboard')
+      router.push('/home');
     } catch (error) {
       console.error('Register failed:', error);
     } finally {

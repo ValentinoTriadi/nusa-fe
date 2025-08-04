@@ -15,7 +15,7 @@ export const Navbar = () => {
     {
       id: 'home',
       label: 'Beranda',
-      link: '/',
+      link: '/home',
       icon: Home,
     },
     {

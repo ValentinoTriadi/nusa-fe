@@ -3,6 +3,7 @@
 @theme {
   --font-family-sans: Inter, system-ui, sans-serif;
   --font-family-mono: ui-monospace, monospace;
+  --font-family-literata: Literata, serif;
   
   --color-background: #F9F9F9;
   --color-foreground: #2D2D2D;
