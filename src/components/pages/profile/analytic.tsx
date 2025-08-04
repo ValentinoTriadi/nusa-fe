@@ -1,5 +1,5 @@
 import { ChartLine } from 'lucide-react';
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 
 import {
   ChartContainer,

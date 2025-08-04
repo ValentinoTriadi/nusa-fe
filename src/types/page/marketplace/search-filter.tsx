@@ -1,8 +1,8 @@
 export interface SearchFilterProps {
   searchQuery: string;
-  onSearchChange: (query: string) => void;
+  onSearchChange: (_query: string) => void;
   selectedCategories: string[];
-  onCategoryChange: (categories: string[]) => void;
+  onCategoryChange: (_categories: string[]) => void;
   sortBy: string;
-  onSortChange: (sort: string) => void;
+  onSortChange: (_sort: string) => void;
 }

@@ -24,7 +24,7 @@ export const usePWAInstall = () => {
       // Check for navigator.standalone (iOS)
       if (
         'standalone' in window.navigator &&
-        (window.navigator as any).standalone
+        (window.navigator as any).standalone // eslint-disable-line @typescript-eslint/no-explicit-any
       ) {
         setIsInstalled(true);
         return;

@@ -1,7 +1,7 @@
 'use client';
 
 import { Download, Smartphone, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { usePWAInstall } from '@/hooks/use-pwa-install';
 
@@ -108,7 +108,7 @@ export const PWAInstallModal = ({ isOpen, onClose }: PWAInstallModalProps) => {
         <div className="mt-4 rounded-lg bg-gray-50 p-3">
           <p className="text-xs text-gray-600">
             <strong>iOS Users:</strong> Tap the share button in Safari and
-            select "Add to Home Screen"
+            select &ldquo;Add to Home Screen&rdquo;
           </p>
         </div>
       </div>

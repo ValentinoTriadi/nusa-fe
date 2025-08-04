@@ -1,4 +1,4 @@
 export interface TabSwitcherProps {
   activeTab: 'produk' | 'mitra';
-  onTabChange: (tab: 'produk' | 'mitra') => void;
+  onTabChange: (_tab: 'produk' | 'mitra') => void;
 }

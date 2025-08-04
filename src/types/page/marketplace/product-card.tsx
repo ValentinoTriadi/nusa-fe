@@ -9,5 +9,5 @@ export interface ProductCardProps {
   distance: number;
   image: string;
   isFavorited?: boolean;
-  onToggleFavorite?: (id: string) => void;
+  onToggleFavorite?: (_id: string) => void;
 }

@@ -17,7 +17,6 @@ export const CollaborationCard = ({
     targetAmount,
     unit,
     description,
-    participantsCount,
     participantsText,
     savingsPercentage,
     borderColor,

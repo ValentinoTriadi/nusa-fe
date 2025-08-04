@@ -4,24 +4,24 @@
   --font-family-sans: Inter, system-ui, sans-serif;
   --font-family-mono: ui-monospace, monospace;
   --font-family-literata: Literata, serif;
-  
-  --color-background: #F9F9F9;
-  --color-foreground: #2D2D2D;
-  --color-card: #E6E5E54D;
-  --color-card-foreground: #2D2D2D;
-  --color-popover: #FFFFFF;
-  --color-popover-foreground: #2D2D2D;
-  --color-primary: #2D2D2D;
-  --color-primary-foreground: #2D2D2D;
+
+  --color-background: #f9f9f9;
+  --color-foreground: #2d2d2d;
+  --color-card: #e6e5e54d;
+  --color-card-foreground: #2d2d2d;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #2d2d2d;
+  --color-primary: #2d2d2d;
+  --color-primary-foreground: #2d2d2d;
   --color-secondary: oklch(0.97 0 0);
   --color-secondary-foreground: oklch(0.205 0 0);
   --color-muted: oklch(0.97 0 0);
   --color-muted-foreground: oklch(0.556 0 0);
-  --color-accent: #FF5C00;
+  --color-accent: #ff5c00;
   --color-accent-foreground: oklch(0.205 0 0);
   --color-destructive: oklch(0.577 0.245 27.325);
-  --color-destructive-foreground: #F9F9F9;
-  --color-border: #DADADA;
+  --color-destructive-foreground: #f9f9f9;
+  --color-border: #dadada;
   --color-input: oklch(0.922 0 0);
   --color-ring: oklch(0.708 0 0);
 
@@ -30,13 +30,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  
+
   --color-chart-1: oklch(0.646 0.222 41.116);
   --color-chart-2: oklch(0.6 0.118 184.704);
   --color-chart-3: oklch(0.398 0.07 227.392);
   --color-chart-4: oklch(0.828 0.189 84.429);
   --color-chart-5: oklch(0.769 0.188 70.08);
-  
+
   --color-sidebar: oklch(0.985 0 0);
   --color-sidebar-foreground: oklch(0.145 0 0);
   --color-sidebar-primary: oklch(0.205 0 0);

@@ -18,8 +18,8 @@ export interface CollaborationData {
 
 export interface CollaborationCardProps {
   collaboration: CollaborationData;
-  onJoin: (id: string) => void;
-  onViewDetails: (id: string) => void;
+  onJoin: (_id: string) => void;
+  onViewDetails: (_id: string) => void;
 }
 
 export interface Product {
@@ -36,7 +36,7 @@ export interface Product {
 export interface CreateCollaborationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: {
+  onSubmit: (_data: {
     productId: string;
     status: 'Aktif' | 'Perencanaan';
     title: string;

@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { CollaborationCardProps } from '@/types/page/home';
 
 export const CollaborationCard = ({
-  id,
   title,
   totalParticipants,
   target,
