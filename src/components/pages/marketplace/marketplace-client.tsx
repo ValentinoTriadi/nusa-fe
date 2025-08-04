@@ -33,12 +33,6 @@ export const MarketplaceClient = () => {
 
       // Only process if there's significant movement
       if (scrollDelta > 5) {
-        console.log(
-          'Scroll direction:',
-          scrollDirection,
-          'Current Y:',
-          currentScrollY,
-        );
         if (scrollDirection === 'down' && currentScrollY > 20) {
           setIsSearchVisible(false);
         } else if (scrollDirection === 'up' && !isNearBottom) {
@@ -119,7 +113,13 @@ export const MarketplaceClient = () => {
 
       {/* Tab Switcher */}
       <div className="z-20 flex-shrink-0">
-        <TabSwitcher activeTab={activeTab} onTabChange={setActiveTab} />
+        <TabSwitcher
+          activeTab={activeTab}
+          onTabChange={(str: string) => {
+            setActiveTab(str as 'produk' | 'mitra');
+            setIsSearchVisible(true);
+          }}
+        />
       </div>
 
       {/* Content */}

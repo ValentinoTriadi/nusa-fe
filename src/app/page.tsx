@@ -1,8 +1,27 @@
-import { ArrowBigDown, ArrowBigUp } from 'lucide-react';
-import Image from 'next/image';
+'use client';
+
+import { ArrowBigDown } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import { PWAInstallModal } from '@/components/common/pwa-install-modal';
+
+import { usePWAInstall } from '@/hooks/use-pwa-install';
 
 export default function LandingPage() {
+  const [showPWAModal, setShowPWAModal] = useState(false);
+  const { isInstallable, isInstalled } = usePWAInstall();
+
+  useEffect(() => {
+    // Show PWA modal after 2 seconds if app is installable and not already installed
+    const timer = setTimeout(() => {
+      if (isInstallable && !isInstalled) {
+        setShowPWAModal(true);
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isInstallable, isInstalled]);
   return (
     <div className="flex h-screen items-center justify-center bg-gray-200">
       <div className="bg-background flex h-screen w-full max-w-md flex-col items-center justify-center">
@@ -53,6 +72,12 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+
+        {/* PWA Install Modal */}
+        <PWAInstallModal
+          isOpen={showPWAModal}
+          onClose={() => setShowPWAModal(false)}
+        />
       </div>
     </div>
   );
