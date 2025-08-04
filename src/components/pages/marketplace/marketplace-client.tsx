@@ -49,27 +49,31 @@ export const MarketplaceClient = () => {
   );
 
   return (
-    <div className="bg-background flex min-h-screen w-full flex-col pb-16">
+    <div className="bg-background flex h-screen w-full flex-col pb-16">
       {/* Header */}
-      <div className="bg-white px-4 py-6">
+      <div className="flex-shrink-0 bg-white px-4 py-6">
         <h1 className="text-2xl font-bold text-gray-900">Marketplace</h1>
       </div>
 
       {/* Search and Filters */}
-      <SearchFilter
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        selectedCategories={selectedCategories}
-        onCategoryChange={setSelectedCategories}
-        sortBy={sortBy}
-        onSortChange={setSortBy}
-      />
+      <div className="flex-shrink-0">
+        <SearchFilter
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedCategories={selectedCategories}
+          onCategoryChange={setSelectedCategories}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+        />
+      </div>
 
       {/* Tab Switcher */}
-      <TabSwitcher activeTab={activeTab} onTabChange={setActiveTab} />
+      <div className="z-20 flex-shrink-0">
+        <TabSwitcher activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
 
       {/* Content */}
-      <div className="flex-1 p-4">
+      <div className="min-h-0 flex-1 overflow-y-auto p-4">
         {activeTab === 'produk' ? (
           <div className="space-y-3">
             {filteredProducts.map((product) => (

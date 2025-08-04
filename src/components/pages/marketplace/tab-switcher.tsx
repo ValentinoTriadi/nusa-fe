@@ -2,7 +2,7 @@ import { TabSwitcherProps } from '@/types/page/marketplace';
 
 export const TabSwitcher = ({ activeTab, onTabChange }: TabSwitcherProps) => {
   return (
-    <div className="border-b border-gray-200 bg-white">
+    <div className="bg-white shadow-lg">
       <div className="flex">
         <button
           onClick={() => onTabChange('produk')}

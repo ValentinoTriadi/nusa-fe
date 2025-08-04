@@ -21,7 +21,7 @@ export const SearchFilter = ({
   };
 
   return (
-    <div className="space-y-4 bg-white p-4">
+    <div className="space-y-2 bg-white p-4 pt-0">
       {/* Search Bar */}
       <div className="relative">
         <Search
