@@ -26,12 +26,22 @@ export const MarketplaceClient = () => {
       const currentScrollY = scrollContainerRef.current.scrollTop;
       const scrollDirection =
         currentScrollY > lastScrollY.current ? 'down' : 'up';
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY.current);
+      const isNearBottom =
+        currentScrollY + scrollContainerRef.current.clientHeight >=
+        scrollContainerRef.current.scrollHeight - 50;
 
-      // Only hide/show if scrolled more than 10px to avoid jittery behavior
-      if (Math.abs(currentScrollY - lastScrollY.current) > 10) {
-        if (scrollDirection === 'down' && currentScrollY > 50) {
+      // Only process if there's significant movement
+      if (scrollDelta > 5) {
+        console.log(
+          'Scroll direction:',
+          scrollDirection,
+          'Current Y:',
+          currentScrollY,
+        );
+        if (scrollDirection === 'down' && currentScrollY > 20) {
           setIsSearchVisible(false);
-        } else if (scrollDirection === 'up' || currentScrollY < 50) {
+        } else if (scrollDirection === 'up' && !isNearBottom) {
           setIsSearchVisible(true);
         }
         lastScrollY.current = currentScrollY;
@@ -43,7 +53,9 @@ export const MarketplaceClient = () => {
       scrollContainer.addEventListener('scroll', handleScroll, {
         passive: true,
       });
-      return () => scrollContainer.removeEventListener('scroll', handleScroll);
+      return () => {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      };
     }
   }, []);
 
