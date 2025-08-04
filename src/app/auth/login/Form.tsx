@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-import { LoginFormType, loginFormSchema } from '@/type/form/login';
+import { LoginFormType, loginFormSchema } from '@/types/form/login';
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);

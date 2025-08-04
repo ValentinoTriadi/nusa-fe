@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-import { RegisterFormType, registerFormSchema } from '@/type/form/register';
+import { RegisterFormType, registerFormSchema } from '@/types/form/register';
 
 export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
