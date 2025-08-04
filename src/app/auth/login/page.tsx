@@ -24,7 +24,7 @@ const LoginPage = () => {
           alt="Logo"
           width={128}
           height={128}
-          className="h-40 w-40"
+          className="h-40 w-40 rounded-lg"
         />
       </div>
 
