@@ -1,6 +1,7 @@
 'use client';
 
-import { Plus } from 'lucide-react';
+import { Plus, ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import {
@@ -74,7 +75,15 @@ export const CollaborationClient = () => {
     <div className="bg-background flex h-screen w-full flex-col pb-16">
       {/* Header */}
       <div className="z-20 flex-shrink-0 bg-white px-4 py-6 shadow-lg">
-        <h1 className="mb-6 text-2xl font-bold text-gray-900">Kolaborasi</h1>
+        <div className="z-20 mb-6 flex flex-shrink-0 justify-between bg-white">
+          <h1 className="text-2xl font-bold text-gray-900">Kolaborasi</h1>
+          <Link
+            href={'/cart'}
+            className="text-foreground hover:bg-accent/50 z-10 flex aspect-square items-center gap-2 rounded-full !p-2 transition-colors duration-300 ease-in-out hover:text-white"
+          >
+            <ShoppingCart size={20} className="h-5 w-5" />
+          </Link>
+        </div>
 
         {/* Create New Button */}
         <button

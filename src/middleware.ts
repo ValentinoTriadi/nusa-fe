@@ -7,6 +7,7 @@ const protectedRoutes = [
   '/marketplace',
   '/profile',
   '/favorites',
+  '/cart',
 ];
 
 const authRoutes = ['/auth/login', '/auth/register'];

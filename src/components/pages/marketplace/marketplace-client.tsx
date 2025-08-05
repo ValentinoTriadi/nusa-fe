@@ -1,5 +1,7 @@
 'use client';
 
+import { ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 import { ProductCard } from '@/components/pages/marketplace/product-card';
@@ -89,8 +91,14 @@ export const MarketplaceClient = () => {
   return (
     <div className="bg-background flex h-screen w-full flex-col pb-16">
       {/* Header */}
-      <div className="z-20 flex-shrink-0 bg-white px-4 py-6">
+      <div className="z-20 flex flex-shrink-0 items-center justify-between bg-white px-4 py-6">
         <h1 className="text-2xl font-bold text-gray-900">Marketplace</h1>
+        <Link
+          href={'/cart'}
+          className="text-foreground hover:bg-accent/50 z-10 flex aspect-square items-center gap-2 rounded-full !p-2 transition-colors duration-300 ease-in-out hover:text-white"
+        >
+          <ShoppingCart size={20} className="h-5 w-5" />
+        </Link>
       </div>
 
       {/* Search and Filters */}

@@ -1,8 +1,11 @@
 'use client';
 
+import { ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Loading } from '@/components/common/loading';
+import { Button } from '@/components/ui/button';
 
 import { useAuth } from '@/hooks/api/use-auth';
 

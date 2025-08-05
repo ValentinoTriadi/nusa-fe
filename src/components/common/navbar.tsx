@@ -1,6 +1,6 @@
 'use client';
 
-import { Handshake, Heart, Home, ShoppingCart, User } from 'lucide-react';
+import { Handshake, Heart, Home, ShoppingBasket, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -22,7 +22,7 @@ export const Navbar = () => {
       id: 'marketplace',
       label: 'Marketplace',
       link: '/marketplace',
-      icon: ShoppingCart,
+      icon: ShoppingBasket,
     },
     {
       id: 'collaboration',
