@@ -35,7 +35,6 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
     const data = await response.json();
     return !!data.session;
   } catch (error) {
-    console.error('Error checking authentication:', error);
     return false;
   }
 }
@@ -56,11 +55,6 @@ export async function middleware(request: NextRequest) {
   }
 
   const isUserAuthenticated = await isAuthenticated(request);
-
-  console.log('Middleware check for authentication:', {
-    pathname,
-    isUserAuthenticated,
-  });
 
   // Handle protected routes
   if (protectedRoutes.some((route) => pathname.startsWith(route))) {
@@ -83,17 +77,6 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL(redirectUrl, request.url));
     }
     return NextResponse.next();
-  }
-
-  // Handle root path
-  if (pathname === '/') {
-    if (isUserAuthenticated) {
-      // Redirect authenticated users to home
-      return NextResponse.redirect(new URL('/home', request.url));
-    } else {
-      // Redirect unauthenticated users to login
-      return NextResponse.redirect(new URL('/auth/login', request.url));
-    }
   }
 
   // Allow access to public routes
