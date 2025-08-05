@@ -1,10 +1,10 @@
 'use client';
 
 import { LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 
+import { useLogout } from '@/hooks/api/use-auth';
 import { ProfileData } from '@/types/page/profile';
 
 import { Analytic } from './analytic';
@@ -39,7 +39,14 @@ const profileData: ProfileData = {
 };
 
 export const ProfileClient = () => {
-  const router = useRouter();
+  const logout = useLogout();
+  const handleLogout = () => {
+    try {
+      logout.mutate();
+    } catch (error) {
+      console.log('Logout failed:', error);
+    }
+  };
   return (
     <div className="bg-background flex min-h-screen w-full flex-col pb-16">
       {/* Header Section with Purple Background */}
@@ -58,7 +65,7 @@ export const ProfileClient = () => {
 
         {/* Logout */}
         <Button
-          onClick={() => router.push('/auth/login')}
+          onClick={handleLogout}
           className="hover:bg-destructive/10 text-destructive w-full rounded-sm bg-white shadow-sm"
         >
           <LogOut />

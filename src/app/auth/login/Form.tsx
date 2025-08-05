@@ -6,11 +6,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
+import { useLogin } from '@/hooks/api/use-auth';
 import { LoginFormType, loginFormSchema } from '@/types/form/login';
 
 export const LoginForm = () => {
@@ -18,6 +20,7 @@ export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const login = useLogin();
 
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginFormSchema),
@@ -31,13 +34,27 @@ export const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      console.log('Login attempt:', values);
-
-      router.push('/home');
+      await login.mutateAsync(values);
     } catch (error) {
-      console.error('Login failed:', error);
+      if (
+        error &&
+        typeof error === 'object' &&
+        'response' in error &&
+        error.response &&
+        typeof error.response === 'object' &&
+        'data' in error.response &&
+        error.response.data &&
+        typeof error.response.data === 'object' &&
+        'code' in error.response.data
+      ) {
+        if (error.response.data.code === 'INVALID_EMAIL_OR_PASSWORD') {
+          toast.error('Email atau password salah');
+        } else if (error.response.data.code === 'EMAIL_NOT_VERIFIED') {
+          toast.error('Email belum diverifikasi');
+        }
+      } else {
+        toast.error('Terjadi kesalahan saat masuk, silakan coba lagi');
+      }
     } finally {
       setIsLoading(false);
     }

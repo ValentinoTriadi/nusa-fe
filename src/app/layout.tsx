@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono, Literata } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
+
+import { QueryProvider } from '@/components/providers/query-provider';
 
 import './globals.css';
 
@@ -71,7 +74,33 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${literata.variable} overscroll-none antialiased`}
       >
-        {children}
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: '',
+            duration: 5000,
+            removeDelay: 1000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+
+            // Default options for specific types
+            success: {
+              duration: 3000,
+              iconTheme: {
+                primary: 'green',
+                secondary: 'black',
+              },
+            },
+          }}
+        />
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

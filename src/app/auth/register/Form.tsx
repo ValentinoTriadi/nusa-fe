@@ -6,11 +6,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
+import { useRegister } from '@/hooks/api/use-auth';
 import { RegisterFormType, registerFormSchema } from '@/types/form/register';
 
 export const RegisterForm = () => {
@@ -19,11 +21,13 @@ export const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const register = useRegister();
 
   const form = useForm<RegisterFormType>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
       address: '',
+      ownerName: '',
       storeName: '',
       businessId: '',
       businessType: 'produsen_bahan_baku',
@@ -40,13 +44,10 @@ export const RegisterForm = () => {
     setIsLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      console.log('Register attempt:', values);
-
-      router.push('/home');
+      const res = await register.mutateAsync(values);
+      console.log('Register response:', res);
     } catch (error) {
-      console.error('Register failed:', error);
+      toast.error('Register failed');
     } finally {
       setIsLoading(false);
     }
@@ -56,17 +57,35 @@ export const RegisterForm = () => {
     <div className="h-full w-full max-w-md">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-          {/* Address Field */}
+          {/* Owner Name Field */}
           <FormField
             control={form.control}
-            name="address"
+            name="ownerName"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
                     type="text"
-                    label="Alamat"
-                    error={form.formState.errors.address?.message}
+                    label="Nama Pemilik"
+                    error={form.formState.errors.storeName?.message}
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          {/* Email Field */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="email"
+                    label="Email"
+                    error={form.formState.errors.email?.message}
                     {...field}
                   />
                 </FormControl>
@@ -92,17 +111,17 @@ export const RegisterForm = () => {
             )}
           />
 
-          {/* Email Field */}
+          {/* Address Field */}
           <FormField
             control={form.control}
-            name="email"
+            name="address"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
-                    type="email"
-                    label="Email"
-                    error={form.formState.errors.email?.message}
+                    type="text"
+                    label="Alamat"
+                    error={form.formState.errors.address?.message}
                     {...field}
                   />
                 </FormControl>

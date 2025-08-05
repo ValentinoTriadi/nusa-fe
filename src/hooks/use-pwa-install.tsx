@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -74,7 +75,7 @@ export const usePWAInstall = () => {
       }
       return false;
     } catch (error) {
-      console.error('Error installing app:', error);
+      toast.error('Error installing app');
       return false;
     }
   };
