@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -20,7 +19,6 @@ export const RegisterForm = () => {
   const [showKonfirmasiPassword, setShowKonfirmasiPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
   const register = useRegister();
 
   const form = useForm<RegisterFormType>({
@@ -46,7 +44,7 @@ export const RegisterForm = () => {
     try {
       const res = await register.mutateAsync(values);
       console.log('Register response:', res);
-    } catch (error) {
+    } catch (_error) {
       toast.error('Register failed');
     } finally {
       setIsLoading(false);

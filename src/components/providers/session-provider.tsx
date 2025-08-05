@@ -24,7 +24,7 @@ interface SessionContextType {
   isAuthenticated: boolean;
   refreshSession: () => Promise<void>;
   clearSession: () => void;
-  setSession: (sessionData: SessionData) => void;
+  setSession: (_sessionData: SessionData) => void;
 }
 
 // Create the context

@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // Base API function type
 type ApiFn<TData = unknown, TVariables = void> = (
-  variables: TVariables,
+  _variables: TVariables,
 ) => Promise<TData>;
 
 // Custom hook for queries with better TypeScript support
@@ -32,17 +32,15 @@ export function useApiMutation<
 >(
   mutationFn: ApiFn<TData, TVariables>,
   options?: {
-    onSuccess?: (data: TData, variables: TVariables) => void;
-    onError?: (error: TError, variables: TVariables) => void;
+    onSuccess?: (_data: TData, _variables: TVariables) => void;
+    onError?: (_error: TError, _variables: TVariables) => void;
     onSettled?: (
-      data: TData | undefined,
-      error: TError | null,
-      variables: TVariables,
+      _data: TData | undefined,
+      _error: TError | null,
+      _variables: TVariables,
     ) => void;
   },
 ) {
-  const queryClient = useQueryClient();
-
   return useMutation<TData, TError, TVariables>({
     mutationFn,
     onSuccess: (data, variables) => {

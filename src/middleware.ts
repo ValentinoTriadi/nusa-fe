@@ -34,7 +34,7 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
 
     const data = await response.json();
     return !!data.session;
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }

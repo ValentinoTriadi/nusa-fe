@@ -88,7 +88,7 @@ export class AuthService {
     try {
       const session = await this.getSession();
       return !!session?.user;
-    } catch (error) {
+    } catch (_error) {
       return false;
     }
   }

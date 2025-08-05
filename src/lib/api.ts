@@ -59,30 +59,35 @@ export interface PaginatedResponse<T> {
 // API functions using axios client
 export const api = {
   // GET request
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get: async <T>(endpoint: string, config?: any) => {
     const response = await axiosClient.get<T>(endpoint, config);
     return response.data;
   },
 
   // POST request
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   post: async <T>(endpoint: string, data?: unknown, config?: any) => {
     const response = await axiosClient.post<T>(endpoint, data, config);
     return response.data;
   },
 
   // PUT request
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   put: async <T>(endpoint: string, data?: unknown, config?: any) => {
     const response = await axiosClient.put<T>(endpoint, data, config);
     return response.data;
   },
 
   // PATCH request
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   patch: async <T>(endpoint: string, data?: unknown, config?: any) => {
     const response = await axiosClient.patch<T>(endpoint, data, config);
     return response.data;
   },
 
   // DELETE request
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   delete: async <T>(endpoint: string, config?: any) => {
     const response = await axiosClient.delete<T>(endpoint, config);
     return response.data;

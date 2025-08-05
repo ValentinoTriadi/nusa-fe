@@ -74,7 +74,7 @@ export const usePWAInstall = () => {
         return true;
       }
       return false;
-    } catch (error) {
+    } catch (_error) {
       toast.error('Error installing app');
       return false;
     }
