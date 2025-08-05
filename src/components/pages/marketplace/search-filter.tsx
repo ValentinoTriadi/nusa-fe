@@ -13,10 +13,10 @@ export const SearchFilter = ({
   const categories = ['Terdekat', 'Bahan Baku', 'Kemasan'];
 
   const handleCategoryToggle = (category: string) => {
-    if (selectedCategories.includes(category)) {
-      onCategoryChange(selectedCategories.filter((c) => c !== category));
+    if (selectedCategories?.includes(category)) {
+      onCategoryChange?.(selectedCategories.filter((c) => c !== category));
     } else {
-      onCategoryChange([...selectedCategories, category]);
+      onCategoryChange?.([...(selectedCategories || []), category]);
     }
   };
 
@@ -38,34 +38,38 @@ export const SearchFilter = ({
       </div>
 
       {/* Category Pills */}
-      <div className="flex flex-wrap gap-2">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => handleCategoryToggle(category)}
-            className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-              selectedCategories.includes(category)
-                ? 'border-purple-200 bg-purple-100 text-purple-700'
-                : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
+      {selectedCategories && onCategoryChange && (
+        <div className="flex flex-wrap gap-2">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleCategoryToggle(category)}
+              className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                selectedCategories.includes(category)
+                  ? 'border-purple-200 bg-purple-100 text-purple-700'
+                  : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Filter and Sort */}
-      <div className="flex items-center justify-between">
-        <button
-          onClick={() =>
-            onSortChange(sortBy === 'price_asc' ? 'price_desc' : 'price_asc')
-          }
-          className="flex cursor-pointer items-center gap-2 text-sm text-gray-600 hover:text-black"
-        >
-          <ArrowUpDown size={16} />
-          Harga: {sortBy === 'price_asc' ? 'paling murah' : 'paling mahal'}
-        </button>
-      </div>
+      {sortBy && onSortChange && (
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() =>
+              onSortChange(sortBy === 'price_asc' ? 'price_desc' : 'price_asc')
+            }
+            className="flex cursor-pointer items-center gap-2 text-sm text-gray-600 hover:text-black"
+          >
+            <ArrowUpDown size={16} />
+            Harga: {sortBy === 'price_asc' ? 'paling murah' : 'paling mahal'}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
