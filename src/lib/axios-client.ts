@@ -3,7 +3,7 @@ import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 // Create axios instance configured for Better Auth
 const axiosClient: AxiosInstance = axios.create({
   baseURL:
-    process.env.NEXT_PUBLIC_API_URL + '/api' || 'http://localhost:5000/api',
+    process.env.NEXT_PUBLIC_API_URL + '/api' || 'https://localhost:5000/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
