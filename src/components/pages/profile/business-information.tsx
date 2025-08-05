@@ -7,7 +7,7 @@ export const BusinessInformation = (profileData: ProfileData) => {
     <div className="rounded-lg border border-gray-100 bg-white p-4 shadow-sm">
       <div className="mb-4 flex items-center gap-2">
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-100">
-          <Info size={24} className="text-orange-600" />
+          <Info size={20} className="text-orange-600" />
         </div>
         <h2 className="text-xl font-semibold text-gray-900">
           Informasi Bisnis
