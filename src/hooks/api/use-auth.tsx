@@ -1,39 +1,54 @@
 import { useRouter } from 'next/navigation';
 
+import {
+  sessionStorage,
+  useSessionContext,
+} from '@/components/providers/session-provider';
+
 import { queryKeys } from '@/lib/api';
 import AuthService, { type AuthResponse } from '@/lib/auth';
 
-import {
-  useApiMutation,
-  useApiQuery,
-  useQueryClientInstance,
-} from '@/hooks/use-api';
+import { useApiMutation, useQueryClientInstance } from '@/hooks/use-api';
 import { LoginCredentials } from '@/types/auth.type';
 import { RegisterFormType } from '@/types/form/register';
 
-// Hook to get current user session from Better Auth
+// Hook to get session from context (no API call needed)
 export function useSession() {
-  return useApiQuery(queryKeys.user.profile(), () => AuthService.getSession(), {
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 1, // Don't retry much on session checks
-    refetchOnWindowFocus: true, // Check session when user comes back
-  });
+  const { session, isLoading, refreshSession } = useSessionContext();
+
+  return {
+    data: session,
+    isLoading,
+    refetch: refreshSession,
+    isError: false,
+    error: null,
+  };
 }
 
 // Hook for login mutation with Better Auth
 export function useLogin() {
   const router = useRouter();
   const queryClient = useQueryClientInstance();
+  const { setSession } = useSessionContext();
 
   return useApiMutation(
     (credentials: LoginCredentials) => AuthService.login(credentials),
     {
       onSuccess: (data: AuthResponse) => {
+        // Update session context
+        setSession({
+          user: data.user,
+          session: data.session,
+        });
+
         // Set user data in cache
         queryClient.setQueryData(queryKeys.user.profile(), {
           user: data.user,
           session: data.session,
         });
+
+        // Trigger login event for other tabs
+        sessionStorage.triggerLogin();
 
         // Redirect to dashboard or intended page
         router.push('/home');
@@ -52,16 +67,26 @@ export function useLogin() {
 export function useRegister() {
   const router = useRouter();
   const queryClient = useQueryClientInstance();
+  const { setSession } = useSessionContext();
 
   return useApiMutation(
     (userData: RegisterFormType) => AuthService.register(userData),
     {
       onSuccess: (data: AuthResponse) => {
+        // Update session context
+        setSession({
+          user: data.user,
+          session: data.session,
+        });
+
         // Set user data in cache
         queryClient.setQueryData(queryKeys.user.profile(), {
           user: data.user,
           session: data.session,
         });
+
+        // Trigger login event for other tabs
+        sessionStorage.triggerLogin();
 
         // Redirect to dashboard
         router.push('/home');
@@ -82,11 +107,18 @@ export function useRegister() {
 export function useLogout() {
   const router = useRouter();
   const queryClient = useQueryClientInstance();
+  const { clearSession } = useSessionContext();
 
   return useApiMutation(() => AuthService.logout(), {
     onSuccess: () => {
+      // Clear session context
+      clearSession();
+
       // Clear all cached data
       queryClient.clear();
+
+      // Trigger logout event for other tabs
+      sessionStorage.triggerLogout();
 
       // Redirect to login
       router.push('/auth/login');
@@ -96,7 +128,9 @@ export function useLogout() {
     onError: (error: any) => {
       console.log('Logout failed:', error);
       // Even if logout API fails, clear local data and redirect
+      clearSession();
       queryClient.clear();
+      sessionStorage.triggerLogout();
       router.push('/auth/login');
     },
   });
@@ -104,16 +138,17 @@ export function useLogout() {
 
 // Hook to check authentication status with Better Auth
 export function useAuth() {
-  const sessionQuery = useSession();
+  const { session, isLoading, isAuthenticated, refreshSession } =
+    useSessionContext();
 
   return {
-    user: sessionQuery.data?.user,
-    session: sessionQuery.data?.session,
-    isAuthenticated: !!sessionQuery.data?.user,
-    isLoading: sessionQuery.isLoading,
-    isError: sessionQuery.isError,
-    error: sessionQuery.error,
-    refetch: sessionQuery.refetch,
+    user: session?.user,
+    session: session?.session,
+    isAuthenticated,
+    isLoading,
+    isError: false,
+    error: null,
+    refetch: refreshSession,
   };
 }
 

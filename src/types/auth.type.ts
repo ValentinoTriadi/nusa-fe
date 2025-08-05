@@ -5,9 +5,17 @@ export const sessionUserSchema = z.object({
   email: z.string().email(),
   emailVerified: z.boolean(),
   name: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
   image: z.string().nullable().optional(),
+  address: z.string(),
+  ownerName: z.string().optional(),
+  storeName: z.string(),
+  businessId: z.string(),
+  businessType: z.string(),
+  city: z.string(),
+  province: z.string(),
+  phoneNumber: z.string(),
 });
 
 export const sessionSchema = z.object({

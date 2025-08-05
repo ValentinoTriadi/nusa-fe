@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Literata } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 
 import { QueryProvider } from '@/components/providers/query-provider';
+import { SessionProvider } from '@/components/providers/session-provider';
 
 import './globals.css';
 
@@ -100,7 +101,9 @@ export default function RootLayout({
             },
           }}
         />
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <SessionProvider>{children}</SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );
