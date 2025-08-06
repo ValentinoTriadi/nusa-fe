@@ -40,10 +40,10 @@ export const FavoritesClient = () => {
     <div className="bg-background flex h-screen w-full flex-col pb-16">
       {/* Header */}
       <div className="z-20 flex flex-shrink-0 justify-between bg-white px-4 py-6">
-        <h1 className="text-2xl font-bold text-gray-900">Favorites</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Favorit</h1>
         <Link
           href={'/cart'}
-          className="text-foreground hover:bg-accent/50 z-10 flex aspect-square items-center gap-2 rounded-full !p-2 transition-colors duration-300 ease-in-out hover:text-white"
+          className="text-foreground z-10 flex aspect-square items-center gap-2 rounded-full !p-2 transition-colors duration-300 ease-in-out hover:bg-gray-200/50"
         >
           <ShoppingCart size={20} className="h-5 w-5" />
         </Link>
