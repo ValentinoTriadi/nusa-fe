@@ -85,7 +85,7 @@ export const CollaborationCard = ({
         {hasJoinButton ? (
           <button
             onClick={() => onJoin(id)}
-            className="w-full cursor-pointer rounded-lg border border-blue-300 bg-blue-100 px-4 py-2 font-medium text-gray-700 transition-colors hover:bg-blue-200"
+            className="w-full cursor-pointer rounded-lg bg-blue-100 px-4 py-2 font-medium text-gray-700 transition-colors hover:bg-blue-200"
           >
             Bergabung
           </button>
@@ -93,10 +93,10 @@ export const CollaborationCard = ({
           <button
             onClick={() => onViewDetails(id)}
             className={cn(
-              'w-full cursor-pointer rounded-lg px-4 py-2 font-medium text-white transition-colors',
+              'text-foreground w-full cursor-pointer rounded-lg px-4 py-2 font-medium transition-colors',
               status === 'Aktif'
-                ? 'bg-[#FF5C00] hover:bg-[#e54f00]'
-                : 'bg-gray-400 hover:bg-gray-500',
+                ? 'bg-green-100 hover:bg-green-200'
+                : 'bg-gray-100 hover:bg-gray-200',
             )}
           >
             Lihat Detail

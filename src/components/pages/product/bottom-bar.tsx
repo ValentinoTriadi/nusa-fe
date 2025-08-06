@@ -1,4 +1,5 @@
 import { ShoppingCart, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
 
 export const BottomBar = ({
   quantity,
@@ -67,7 +68,7 @@ export const BottomBar = ({
   const nextTierIncentive = getNextTierIncentive();
 
   return (
-    <div className=" right-0 bottom-0 left-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+    <div className="right-0 bottom-0 left-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
       {/* Next Tier Incentive Card */}
       {nextTierIncentive && (
         <div className="border border-orange-200 bg-gradient-to-r from-orange-50 to-red-50 px-4 py-2">
@@ -114,9 +115,12 @@ export const BottomBar = ({
             <ShoppingCart className="h-4 w-4" />
             Keranjang
           </button>
-          <button className="flex-1 rounded-lg bg-orange-500 px-4 py-3 font-medium text-white">
+          <Link
+            href={'/checkout'}
+            className="flex-1 rounded-lg bg-orange-500 px-4 py-3 text-center font-medium text-white"
+          >
             Beli Sekarang
-          </button>
+          </Link>
         </div>
       </div>
     </div>

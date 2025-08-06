@@ -8,6 +8,8 @@ const protectedRoutes = [
   '/profile',
   '/favorites',
   '/cart',
+  '/checkout',
+  '/product',
 ];
 
 const authRoutes = ['/auth/login', '/auth/register'];
