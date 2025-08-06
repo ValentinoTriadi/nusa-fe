@@ -6,7 +6,7 @@ import { Product } from '@/types/page/product';
 
 interface OrderQuantityProps {
   quantity: number;
-  setQuantity: (value: number) => void;
+  setQuantity: (_value: number) => void;
   product: Product;
 }
 

@@ -1,6 +1,5 @@
 import { Truck } from 'lucide-react';
 
-import { Card } from '@/components/ui/card';
 
 import { CheckoutShipping } from '@/types/page/checkout';
 
@@ -11,7 +10,7 @@ export const ShippingOptions = ({
 }: {
   shipping: CheckoutShipping;
   selectedShipping: string;
-  setSelectedShipping: (value: string) => void;
+  setSelectedShipping: (_value: string) => void;
 }) => {
   return (
     <div className="mb-0 border-t border-gray-200 p-4 py-6">

@@ -7,7 +7,7 @@ import { Product } from '@/types/page/product';
 interface ProductInfoProps {
   product: Product;
   isFavorite: boolean;
-  setIsFavorite: (value: boolean) => void;
+  setIsFavorite: (_value: boolean) => void;
   getCurrentPrice: () => number;
 }
 

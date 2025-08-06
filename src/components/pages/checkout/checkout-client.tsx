@@ -1,19 +1,12 @@
 'use client';
 
 import {
-  Building2,
   ChevronLeft,
-  CreditCard,
-  MapPin,
-  Scan,
-  Truck,
 } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 
 import { mockCheckoutData } from '@/constants/pages/checkout';
 

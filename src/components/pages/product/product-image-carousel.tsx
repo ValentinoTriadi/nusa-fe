@@ -14,7 +14,7 @@ import {
 
 export const ProductImageCarousel = ({ images }: { images: string[] }) => {
   const [api, setApi] = useState<CarouselApi>();
-  const [count, setCount] = useState(0);
+  const [_count, setCount] = useState(0);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {

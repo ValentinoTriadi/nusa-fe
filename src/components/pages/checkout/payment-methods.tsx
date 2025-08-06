@@ -1,6 +1,5 @@
 import { Building2, CreditCard, Scan } from 'lucide-react';
 
-import { Card } from '@/components/ui/card';
 
 import { CheckoutPayment } from '@/types/page/checkout';
 
@@ -11,7 +10,7 @@ export const PaymentMethods = ({
 }: {
   payment: CheckoutPayment;
   selectedPayment: string;
-  setSelectedPayment: (value: string) => void;
+  setSelectedPayment: (_value: string) => void;
 }) => {
   return (
     <div className="border-t border-gray-200 p-4 py-6">

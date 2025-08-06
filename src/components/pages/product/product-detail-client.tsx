@@ -1,13 +1,11 @@
 'use client';
 
-import { ChevronLeft, Heart, Package, ShoppingCart, Star } from 'lucide-react';
-import Image from 'next/image';
+import { ChevronLeft, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 
 import { BottomBar } from './bottom-bar';
 import { OrderQuantity } from './order-quantity';

@@ -2,7 +2,6 @@ import { Banknote } from 'lucide-react';
 
 import { Card } from '@/components/ui/card';
 
-import { mockCheckoutData } from '@/constants/pages/checkout';
 
 export const PaymentSummary = ({
   total,

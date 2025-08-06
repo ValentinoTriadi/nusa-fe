@@ -1,4 +1,4 @@
-import { ShoppingCart, TrendingUp } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 
 export const BottomBar = ({
@@ -30,10 +30,6 @@ export const BottomBar = ({
     regularPrice && currentPrice && regularPrice > currentPrice
       ? (regularPrice - currentPrice) * quantity
       : 0;
-
-  const regularTotal = regularPrice ? regularPrice * quantity : total;
-  const savingsPercentage =
-    savings > 0 ? Math.round((savings / regularTotal) * 100) : 0;
 
   // Find next wholesale tier that user can upgrade to
   const getNextTierIncentive = () => {
