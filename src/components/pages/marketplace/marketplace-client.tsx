@@ -4,6 +4,7 @@ import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
+import { Loading } from '@/components/common/loading';
 import { ProductCard } from '@/components/pages/marketplace/product-card';
 import { SearchFilter } from '@/components/pages/marketplace/search-filter';
 import { TabSwitcher } from '@/components/pages/marketplace/tab-switcher';
@@ -65,7 +66,11 @@ export const MarketplaceClient = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="bg-background flex min-h-screen w-full flex-col items-center justify-center">
+        <Loading />
+      </div>
+    );
   }
 
   const products = data?.data?.data || [];

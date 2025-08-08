@@ -1,30 +1,23 @@
 import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 
+import { WholesalePrice } from '@/api';
+
 export const BottomBar = ({
   quantity,
   total,
   regularPrice,
   currentPrice,
   wholesaleTiers,
+  unit,
 }: {
   quantity: number;
   total: number;
   regularPrice?: number;
   currentPrice?: number;
-  wholesaleTiers?: Array<{
-    min: number;
-    max: number;
-    price: number;
-  }>;
+  wholesaleTiers?: WholesalePrice[];
+  unit: string;
 }) => {
-  console.log('BottomBar rendered', {
-    quantity,
-    total,
-    regularPrice,
-    currentPrice,
-  });
-
   // Calculate savings if wholesale price is different from regular price
   const savings =
     regularPrice && currentPrice && regularPrice > currentPrice
@@ -37,25 +30,26 @@ export const BottomBar = ({
 
     // Find current tier
     const currentTier = wholesaleTiers.find(
-      (tier) => quantity >= tier.min && quantity <= tier.max,
+      (tier) => quantity >= tier.minQuantity && quantity <= tier.maxQuantity,
     );
 
     if (!currentTier) return null;
 
     // Find next tier with better price
     const nextTier = wholesaleTiers.find(
-      (tier) => tier.min > quantity && tier.price < currentTier.price,
+      (tier) => tier.minQuantity > quantity && tier.price < currentTier.price,
     );
 
     if (!nextTier) return null;
 
-    const quantityNeeded = nextTier.min - quantity;
-    const nextTierTotalCost = nextTier.min * nextTier.price;
-    const potentialSavings = nextTier.min * regularPrice - nextTierTotalCost;
+    const quantityNeeded = nextTier.minQuantity - quantity;
+    const nextTierTotalCost = nextTier.minQuantity * nextTier.price;
+    const potentialSavings =
+      nextTier.minQuantity * regularPrice - nextTierTotalCost;
 
     return {
       quantityNeeded,
-      nextTierMin: nextTier.min,
+      nextTierMin: nextTier.minQuantity,
       potentialSavings,
       nextTierPrice: nextTier.price,
     };
@@ -71,7 +65,7 @@ export const BottomBar = ({
           <div className="text-sm text-orange-700">
             <p className="mb-1">
               <span className="font-medium">
-                Kurang {nextTierIncentive.quantityNeeded} kg lagi
+                Kurang {nextTierIncentive.quantityNeeded} {unit} lagi
               </span>{' '}
               untuk hemat{' '}
               <span className="font-bold text-green-600">
@@ -79,8 +73,8 @@ export const BottomBar = ({
               </span>
             </p>
             <p className="text-xs text-orange-600">
-              Beli {nextTierIncentive.nextTierMin} kg dengan harga Rp{' '}
-              {nextTierIncentive.nextTierPrice.toLocaleString()}/kg
+              Beli {nextTierIncentive.nextTierMin} {unit} dengan harga Rp{' '}
+              {nextTierIncentive.nextTierPrice.toLocaleString()}/{unit}
             </p>
           </div>
         </div>
@@ -102,8 +96,10 @@ export const BottomBar = ({
             )}
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-400">
-            <p>{quantity} kg</p>•
-            {savings > 0 ? <p>Harga Grosir</p> : <p>Harga Reguler</p>}
+            <p>
+              {quantity} {unit}
+            </p>
+            •{savings > 0 ? <p>Harga Grosir</p> : <p>Harga Reguler</p>}
           </div>
         </div>
         <div className="flex gap-3 text-xs">

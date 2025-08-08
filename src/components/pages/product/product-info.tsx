@@ -2,10 +2,10 @@ import { Heart } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
-import { Product } from '@/types/page/product';
+import { ProductWithStore } from '@/api';
 
 interface ProductInfoProps {
-  product: Product;
+  product?: ProductWithStore;
   isFavorite: boolean;
   setIsFavorite: (_value: boolean) => void;
   getCurrentPrice: () => number;
@@ -20,7 +20,7 @@ export const ProductInfo = ({
   return (
     <div className="flex flex-col space-y-2">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">{product.name}</h2>
+        <h2 className="text-2xl font-bold text-gray-900">{product?.name}</h2>
         <Button
           variant="outline"
           size="icon"
@@ -33,15 +33,16 @@ export const ProductInfo = ({
         </Button>
       </div>
       <p className="text-foreground mt-2 text-sm leading-relaxed">
-        {product.description}
+        {product?.description}
       </p>
       <div className="text-accent text-2xl font-bold">
         Rp {getCurrentPrice().toLocaleString()}
-        <span className="text-foreground text-sm">/{product.unit}</span>
+        <span className="text-foreground text-sm">/{product?.unit}</span>
       </div>
       <div className="text-xs text-gray-500">
-        Min. {product.minOrder}
-        {product.unit} • Tersedia: {product.maxStock.toLocaleString()} ton
+        Min. {product?.wholesalePrices?.[0].minQuantity.toLocaleString() || 0}{' '}
+        {product?.unit} • Tersedia: {product?.stock.toLocaleString()}{' '}
+        {product?.unit}
       </div>
     </div>
   );

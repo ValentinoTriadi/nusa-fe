@@ -1,8 +1,6 @@
 import { Heart, MapPin } from 'lucide-react';
 import Image from 'next/image';
-import image from 'next/image';
 import Link from 'next/link';
-import { id } from 'zod/v4/locales';
 
 import { ProductCardProps } from '@/types/page/marketplace';
 
@@ -17,7 +15,7 @@ export const ProductCard = ({
 
   return (
     <div className="cursor-pointer overflow-hidden rounded-lg bg-white shadow-xs transition-shadow hover:shadow-sm">
-      <Link href={`/product/${id}`} className="group">
+      <Link href={`/product/${product.id}`} className="group">
         <div className="flex gap-3 p-3">
           {/* Product Image */}
           <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">

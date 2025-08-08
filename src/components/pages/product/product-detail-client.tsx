@@ -3,9 +3,12 @@
 import { ChevronLeft, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
+import { Loading } from '@/components/common/loading';
 import { Button } from '@/components/ui/button';
+
+import { useProductDetailQuery } from '@/hooks/api/use-product';
 
 import { BottomBar } from './bottom-bar';
 import { OrderQuantity } from './order-quantity';
@@ -19,50 +22,37 @@ interface ProductDetailClientProps {
   id: string;
 }
 
-// Mock product data - replace with API call
-const getProductData = (id: string) => ({
-  id,
-  name: 'Tepung Singkong',
-  description:
-    'Gula aren organik premium dari petani lokal Bogor. Diproses secara tradisional tanpa bahan kimia, memberikan rasa manis alami yang sempurna untuk berbagai produk makanan dan minuman.',
-  images: ['/images/Hero.png', '/logo.png', '/images/Hero.png'],
-  basePrice: 12000,
-  unit: 'kg',
-  minOrder: 50,
-  maxStock: 2500,
-  shop: {
-    rating: 4.8,
-    reviewCount: 24,
-    name: 'Berkah Jaya',
-    location: 'Bogor',
-    distance: 12,
-  },
-  wholesalePricing: [
-    { min: 50, max: 99, price: 12000 },
-    { min: 100, max: 499, price: 10000 },
-    { min: 500, max: 999, price: 8000 },
-  ],
-  shippingCost: 20000,
-  adminFee: 5000,
-});
+// TODO: Change it
+const shippingCost = 20000; // Example shipping cost
+const adminFee = 5000; // Example admin fee
 
 export const ProductDetailClient = ({ id }: ProductDetailClientProps) => {
   const router = useRouter();
-  const [quantity, setQuantity] = useState(50);
+  const [quantity, setQuantity] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const product = getProductData(id);
+  const { data, isLoading } = useProductDetailQuery(id);
+
+  if (isLoading) {
+    return (
+      <div className="bg-background flex min-h-screen w-full flex-col items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  const product = data?.data?.data;
 
   // Calculate pricing based on quantity
   const getCurrentPrice = () => {
-    const pricing = product.wholesalePricing.find(
-      (tier) => quantity >= tier.min && quantity <= tier.max,
+    const pricing = product?.wholesalePrices?.find(
+      (tier) => quantity >= tier.minQuantity && quantity <= tier.maxQuantity,
     );
-    return pricing?.price || product.basePrice;
+    return pricing?.price || product?.price || 0;
   };
 
   const subtotal = getCurrentPrice() * quantity;
-  const total = subtotal + product.shippingCost + product.adminFee;
+  const total = subtotal + shippingCost + adminFee;
 
   return (
     <div className="bg-background relative min-h-screen">
@@ -87,7 +77,7 @@ export const ProductDetailClient = ({ id }: ProductDetailClientProps) => {
       </div>
 
       {/* Product Images Carousel */}
-      <ProductImageCarousel images={product.images} />
+      <ProductImageCarousel images={product?.imageUrls || []} />
 
       {/* Product Options */}
       <div className="space-y-6 p-4">
@@ -103,7 +93,7 @@ export const ProductDetailClient = ({ id }: ProductDetailClientProps) => {
         <WholesalePricing product={product} />
 
         {/* Rating and Reviews */}
-        <ShopInformation shop={product.shop} />
+        <ShopInformation shop={product?.store} />
 
         {/* Quantity Selector */}
         <OrderQuantity
@@ -117,6 +107,16 @@ export const ProductDetailClient = ({ id }: ProductDetailClientProps) => {
           quantity={quantity}
           product={product}
           subtotal={subtotal}
+          otherFee={[
+            {
+              title: 'Estimasi Ongkir',
+              cost: shippingCost,
+            },
+            {
+              title: 'Biaya Admin',
+              cost: adminFee,
+            },
+          ]}
           total={total}
         />
       </div>
@@ -124,9 +124,10 @@ export const ProductDetailClient = ({ id }: ProductDetailClientProps) => {
       <BottomBar
         quantity={quantity}
         total={total}
-        regularPrice={product.wholesalePricing[0]?.price}
+        regularPrice={product?.price}
         currentPrice={getCurrentPrice()}
-        wholesaleTiers={product.wholesalePricing}
+        wholesaleTiers={product?.wholesalePrices}
+        unit={product?.unit || 'kg'}
       />
     </div>
   );

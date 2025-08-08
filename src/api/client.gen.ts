@@ -23,6 +23,5 @@ export type CreateClientConfig<T extends DefaultClientOptions = ClientOptions> =
 export const client = createClient(
   createConfig<ClientOptions>({
     baseURL: 'https://api.nusa.vtriadi.site',
-    withCredentials: true,
   }),
 );

@@ -2,9 +2,13 @@ import { Package } from 'lucide-react';
 
 import { Card } from '@/components/ui/card';
 
-import { Product } from '@/types/page/product';
+import { ProductWithStore } from '@/api';
 
-export const WholesalePricing = ({ product }: { product: Product }) => {
+export const WholesalePricing = ({
+  product,
+}: {
+  product?: ProductWithStore;
+}) => {
   return (
     <Card className="border-purple-200 bg-purple-50 p-4">
       <div className="flex items-center space-x-2">
@@ -15,13 +19,13 @@ export const WholesalePricing = ({ product }: { product: Product }) => {
       </div>
 
       <div className="space-y-2">
-        {product.wholesalePricing.map((tier, index) => (
+        {product?.wholesalePrices?.map((tier, index) => (
           <div key={index} className="flex items-center justify-between">
             <span className="text-sm text-gray-700">
-              {tier.min}-{tier.max} {product.unit}
+              {tier.minQuantity}-{tier.maxQuantity} {product?.unit}
             </span>
             <span className="font-semibold text-purple-900">
-              Rp {tier.price.toLocaleString()}/{product.unit}
+              Rp {tier.price.toLocaleString()}/{product?.unit}
             </span>
           </div>
         ))}
