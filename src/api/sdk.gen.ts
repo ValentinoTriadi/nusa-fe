@@ -207,7 +207,7 @@ export const deleteStore = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/store/:id',
+    url: '/api/store/{id}',
     ...options,
   });
 };
@@ -221,7 +221,7 @@ export const getStore = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/store/:id',
+    url: '/api/store/{id}',
     ...options,
   });
 };
@@ -235,7 +235,7 @@ export const updateStore = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/store/:id',
+    url: '/api/store/{id}',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -285,7 +285,7 @@ export const deleteProduct = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/product/:id',
+    url: '/api/product/{id}',
     ...options,
   });
 };
@@ -299,7 +299,7 @@ export const getProduct = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/product/:id',
+    url: '/api/product/{id}',
     ...options,
   });
 };
@@ -313,7 +313,7 @@ export const updateProduct = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/product/:id',
+    url: '/api/product/{id}',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -363,7 +363,7 @@ export const deleteWholesalePrice = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/wholesale-price/:id',
+    url: '/api/wholesale-price/{id}',
     ...options,
   });
 };
@@ -377,7 +377,7 @@ export const getWholesalePrice = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/wholesale-price/:id',
+    url: '/api/wholesale-price/{id}',
     ...options,
   });
 };
@@ -391,7 +391,7 @@ export const updateWholesalePrice = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/wholesale-price/:id',
+    url: '/api/wholesale-price/{id}',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -441,7 +441,7 @@ export const deleteCart = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/cart/:id',
+    url: '/api/cart/{id}',
     ...options,
   });
 };
@@ -455,7 +455,7 @@ export const getCart = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/cart/:id',
+    url: '/api/cart/{id}',
     ...options,
   });
 };
@@ -469,7 +469,7 @@ export const updateCart = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/cart/:id',
+    url: '/api/cart/{id}',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -519,7 +519,7 @@ export const deleteFavorite = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/favorite/:id',
+    url: '/api/favorite/{id}',
     ...options,
   });
 };
@@ -533,7 +533,7 @@ export const getFavorite = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/favorite/:id',
+    url: '/api/favorite/{id}',
     ...options,
   });
 };
@@ -547,7 +547,7 @@ export const updateFavorite = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/favorite/:id',
+    url: '/api/favorite/{id}',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -597,7 +597,7 @@ export const deleteTransaction = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/transaction/:id',
+    url: '/api/transaction/{id}',
     ...options,
   });
 };
@@ -611,7 +611,7 @@ export const getTransaction = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/transaction/:id',
+    url: '/api/transaction/{id}',
     ...options,
   });
 };
@@ -625,7 +625,7 @@ export const updateTransaction = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     responseType: 'json',
-    url: '/api/transaction/:id',
+    url: '/api/transaction/{id}',
     ...options,
     headers: {
       'Content-Type': 'application/json',
