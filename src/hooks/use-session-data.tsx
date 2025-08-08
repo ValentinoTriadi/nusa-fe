@@ -35,9 +35,10 @@ export function useUser() {
 export function useUserProfile() {
   const { session } = useSessionContext();
   const user = session?.user;
+  const company = session?.company;
 
   const hasBusinessType = (businessType: string) => {
-    return user?.businessType === businessType;
+    return company?.businessType === businessType;
   };
 
   const isEmailVerified = () => {
@@ -47,9 +48,9 @@ export function useUserProfile() {
   return {
     hasBusinessType,
     isEmailVerified,
-    businessType: user?.businessType,
-    storeName: user?.storeName,
-    city: user?.city,
-    province: user?.province,
+    businessType: company?.businessType,
+    storeName: company?.storeName,
+    city: company?.city,
+    province: company?.province,
   };
 }
