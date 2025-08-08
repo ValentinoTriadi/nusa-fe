@@ -9,6 +9,7 @@ import { ProductCard } from '@/components/pages/marketplace/product-card';
 import { SearchFilter } from '@/components/pages/marketplace/search-filter';
 import { TabSwitcher } from '@/components/pages/marketplace/tab-switcher';
 
+import { useAuth } from '@/hooks/api/use-auth';
 import { useProductListQuery } from '@/hooks/api/use-product';
 
 export const MarketplaceClient = () => {
@@ -21,6 +22,7 @@ export const MarketplaceClient = () => {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
+  const { company } = useAuth();
   const { data, isLoading } = useProductListQuery();
 
   useEffect(() => {
@@ -90,12 +92,14 @@ export const MarketplaceClient = () => {
           .toLowerCase()
           .includes(searchQuery.toLowerCase())) &&
       (selectedCategories.length === 0 ||
-        ((selectedCategories.includes('Terdekat') ? true : true) &&
+        ((selectedCategories.includes('Terdekat')
+          ? product.store?.city === company?.city
+          : true) &&
           (selectedCategories.includes('Bahan Baku')
-            ? product.tags.includes('Bahan Baku')
+            ? product.tags.includes('bahan baku')
             : true) &&
           (selectedCategories.includes('Kemasan')
-            ? product.tags.includes('Kemasan')
+            ? product.tags.includes('kemasan')
             : true))),
   );
 

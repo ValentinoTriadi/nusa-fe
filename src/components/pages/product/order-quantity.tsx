@@ -124,7 +124,11 @@ export const OrderQuantity = ({
               ),
             )
           }
-          disabled={quantity >= (product?.stock || 0)}
+          disabled={
+            quantity >=
+            (product?.wholesalePrices?.[product.wholesalePrices.length - 1]
+              ?.maxQuantity || 0)
+          }
         >
           +
         </Button>
