@@ -8,7 +8,7 @@ import { ProductCard } from '@/components/pages/marketplace/product-card';
 import { SearchFilter } from '@/components/pages/marketplace/search-filter';
 import { TabSwitcher } from '@/components/pages/marketplace/tab-switcher';
 
-import { mockProducts } from '@/constants/pages/marketplace/product';
+import { useProductListQuery } from '@/hooks/api/use-product';
 
 export const MarketplaceClient = () => {
   const [activeTab, setActiveTab] = useState<'produk' | 'mitra'>('produk');
@@ -20,6 +20,7 @@ export const MarketplaceClient = () => {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
+  const { data, isLoading } = useProductListQuery();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +64,14 @@ export const MarketplaceClient = () => {
     );
   };
 
-  const sortedProducts = [...mockProducts].sort((a, b) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log('PRODUCT LIST DATA: ', data);
+
+  const products = data?.data?.data || [];
+  const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === 'price_asc') {
       return a.price - b.price;
     } else if (sortBy === 'price_desc') {
@@ -75,16 +83,16 @@ export const MarketplaceClient = () => {
   const filteredProducts = sortedProducts.filter(
     (product) =>
       (product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.seller.toLowerCase().includes(searchQuery.toLowerCase())) &&
+        product.store?.storeName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())) &&
       (selectedCategories.length === 0 ||
-        ((selectedCategories.includes('Terdekat')
-          ? product.distance < 15
-          : true) &&
+        ((selectedCategories.includes('Terdekat') ? true : true) &&
           (selectedCategories.includes('Bahan Baku')
-            ? product.category === 'Bahan Baku'
+            ? product.tags.includes('Bahan Baku')
             : true) &&
           (selectedCategories.includes('Kemasan')
-            ? product.category === 'Kemasan'
+            ? product.tags.includes('Kemasan')
             : true))),
   );
 
@@ -140,7 +148,7 @@ export const MarketplaceClient = () => {
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
-                {...product}
+                product={product}
                 isFavorited={favorites.includes(product.id)}
                 onToggleFavorite={handleToggleFavorite}
               />

@@ -9,9 +9,11 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format:check": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
+    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "openapi-ts:dev": "openapi-ts --file ./openapi-ts.ts"
   },
   "dependencies": {
+    "@hey-api/openapi-ts": "^0.80.5",
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
@@ -20,6 +22,7 @@
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.1",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.536.0",
     "next": "15.4.5",

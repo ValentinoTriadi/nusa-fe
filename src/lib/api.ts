@@ -9,6 +9,13 @@ export const queryKeys = {
     settings: () => [...queryKeys.user.all, 'settings'] as const,
   },
 
+  // Product related queries
+  product: {
+    all: ['product'] as const,
+    detail: (id: string | number) =>
+      [...queryKeys.product.all, 'detail', id] as const,
+  },
+
   // Collaboration related queries
   collaborations: {
     all: ['collaborations'] as const,

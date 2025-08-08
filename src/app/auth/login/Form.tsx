@@ -144,7 +144,7 @@ export const LoginForm = () => {
       </Form>
 
       {/* Divider */}
-      <div className="mt-6 w-full">
+      {/* <div className="mt-6 w-full">
         <div className="flex w-full items-center justify-between">
           <div className="flex w-full items-center">
             <div className="w-full border-t border-gray-300" />
@@ -156,10 +156,10 @@ export const LoginForm = () => {
             <div className="w-full border-t border-gray-300" />
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Social Login Options */}
-      <div className="mt-6 space-y-3">
+      {/* <div className="mt-6 space-y-3">
         <Button
           variant="outline"
           className="text-foreground w-full"
@@ -185,7 +185,7 @@ export const LoginForm = () => {
           </svg>
           Masuk dengan Google
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
