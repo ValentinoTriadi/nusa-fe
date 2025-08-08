@@ -54,6 +54,7 @@ const eslintConfig = [
       '*.config.mjs',
       'src/stories/**/*.ts',
       'src/stories/**/*.tsx',
+      'src/api/**/*.ts',
       'src/app/api/auth/**/*.ts',
       'api-contract',
     ],

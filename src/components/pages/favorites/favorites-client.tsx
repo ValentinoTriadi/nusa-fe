@@ -9,14 +9,15 @@ import { SearchFilter } from '@/components/pages/marketplace/search-filter';
 import { TabSwitcher } from '@/components/pages/marketplace/tab-switcher';
 
 import { mockProducts } from '@/constants/pages/marketplace/product';
+import { useProductListQuery } from '@/hooks/api/use-product';
 
 export const FavoritesClient = () => {
   const [activeTab, setActiveTab] = useState<'produk' | 'mitra'>('produk');
   const [searchQuery, setSearchQuery] = useState('');
-  const [favorites, setFavorites] = useState<string[]>(
-    mockProducts.map((product) => product.id),
-  );
+  const [favorites, setFavorites] = useState<string[]>([]);
   const [isSearchVisible, setIsSearchVisible] = useState(true);
+
+  const { data, isLoading } = useProductListQuery();
 
   const handleToggleFavorite = (productId: string) => {
     setFavorites((prev) =>
@@ -26,14 +27,21 @@ export const FavoritesClient = () => {
     );
   };
 
-  const sortedProducts = [...mockProducts].sort((a, b) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const products = data?.data?.data || [];
+  const sortedProducts = [...products].sort((a, b) => {
     return a.price - b.price;
   });
 
   const filteredProducts = sortedProducts.filter(
     (product) =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.seller.toLowerCase().includes(searchQuery.toLowerCase()),
+      product.store?.storeName
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -81,7 +89,7 @@ export const FavoritesClient = () => {
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
-                {...product}
+                product={product}
                 isFavorited={favorites.includes(product.id)}
                 onToggleFavorite={handleToggleFavorite}
               />

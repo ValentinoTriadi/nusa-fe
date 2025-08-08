@@ -68,8 +68,6 @@ export const MarketplaceClient = () => {
     return <div>Loading...</div>;
   }
 
-  console.log('PRODUCT LIST DATA: ', data);
-
   const products = data?.data?.data || [];
   const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === 'price_asc') {
