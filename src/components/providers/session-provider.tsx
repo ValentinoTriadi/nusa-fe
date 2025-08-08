@@ -10,11 +10,16 @@ import React, {
 
 import AuthService from '@/lib/auth';
 
-import { type Session, type SessionUser } from '@/types/auth.type';
+import {
+  type Session,
+  SessionCompany,
+  type SessionUser,
+} from '@/types/auth.type';
 
 // Types for session context
 interface SessionData {
   user: SessionUser;
+  company: SessionCompany;
   session: Session;
 }
 
@@ -44,6 +49,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
     try {
       setIsLoading(true);
       const sessionData = await AuthService.getSession();
+      console.log('Fetched session:', sessionData);
       setSessionData(sessionData);
     } catch (error) {
       console.error('Failed to fetch session:', error);

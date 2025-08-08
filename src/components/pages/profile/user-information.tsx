@@ -1,8 +1,14 @@
 import { User } from 'lucide-react';
 
-import { SessionUser } from '@/types/auth.type';
+import { SessionCompany, SessionUser } from '@/types/auth.type';
 
-export const UserInformation = ({ user }: { user: SessionUser }) => {
+export const UserInformation = ({
+  user,
+  company,
+}: {
+  user: SessionUser;
+  company?: SessionCompany;
+}) => {
   return (
     <div className="rounded-lg bg-white p-4 shadow-sm">
       <div className="mb-4 flex items-center gap-2">
@@ -19,15 +25,15 @@ export const UserInformation = ({ user }: { user: SessionUser }) => {
           </div>
           <div className="flex">
             <span className="w-32 font-medium">No Telepon:</span>
-            <span>{user.phoneNumber}</span>
+            <span>{company?.phoneNumber}</span>
           </div>
           <div className="flex">
             <span className="w-32 font-medium">Pemilik:</span>
-            <span>{user.ownerName || user.name}</span>
+            <span>{user.name}</span>
           </div>
           <div className="flex">
             <span className="w-32 font-medium">NIB:</span>
-            <span>{user.businessId}</span>
+            <span>{company?.businessId}</span>
           </div>
           <div className="flex">
             <span className="w-32 font-medium">Terdaftar sejak:</span>

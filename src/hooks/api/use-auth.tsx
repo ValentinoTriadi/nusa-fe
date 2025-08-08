@@ -39,12 +39,14 @@ export function useLogin() {
         // Update session context
         setSession({
           user: data.user,
+          company: data.company,
           session: data.session,
         });
 
         // Set user data in cache
         queryClient.setQueryData(queryKeys.user.profile(), {
           user: data.user,
+          company: data.company,
           session: data.session,
         });
 
@@ -77,6 +79,7 @@ export function useRegister() {
         // Update session context
         setSession({
           user: data.user,
+          company: data.company,
           session: data.session,
         });
 
@@ -145,6 +148,7 @@ export function useAuth() {
   return {
     user: session?.user,
     session: session?.session,
+    company: session?.company,
     isAuthenticated,
     isLoading,
     isError: false,

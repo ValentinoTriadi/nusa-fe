@@ -12,7 +12,7 @@ import { PartnerRecommendation } from './partner-recomendation';
 import { StatsCards } from './stats-cards';
 
 export const HomeClient = () => {
-  const { user, isLoading } = useAuth();
+  const { user, company, isLoading } = useAuth();
 
   // Show loading state while checking session
   if (isLoading) {
@@ -24,7 +24,7 @@ export const HomeClient = () => {
   }
 
   const ownerName = user?.name || 'Owner';
-  const company = user?.storeName || 'Perusahaan Anda';
+  const companyName = company?.storeName || 'Perusahaan Anda';
 
   return (
     <div className="bg-background flex min-h-screen w-full flex-col items-center gap-8 overflow-y-scroll pt-0 pb-20">
@@ -41,7 +41,7 @@ export const HomeClient = () => {
           <h1 className="mb-1 text-3xl font-semibold">
             Selamat Pagi, {ownerName}
           </h1>
-          <p className="text-lg opacity-90">{company}</p>
+          <p className="text-lg opacity-90">{companyName}</p>
         </div>
       </div>
       <div className="flex w-full flex-col items-center gap-8 px-4">

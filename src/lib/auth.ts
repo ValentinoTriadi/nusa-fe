@@ -1,4 +1,9 @@
-import { LoginCredentials, Session, SessionUser } from '@/types/auth.type';
+import {
+  LoginCredentials,
+  Session,
+  SessionCompany,
+  SessionUser,
+} from '@/types/auth.type';
 import { RegisterFormType } from '@/types/form/register';
 
 import axiosClient from './axios-client';
@@ -6,6 +11,7 @@ import axiosClient from './axios-client';
 export interface AuthResponse {
   user: SessionUser;
   session: Session;
+  company: SessionCompany;
 }
 
 // Auth utility class for Better Auth
@@ -20,9 +26,18 @@ export class AuthService {
       },
     );
 
-    console.log('Login response:', response);
+    const responseStore = await axiosClient.get('/store/me', {
+      withCredentials: true, // Important for cookies
+    });
+    if (!response.data || !responseStore.data) {
+      throw new Error('Login failed');
+    }
 
-    return response.data;
+    return {
+      user: response.data.user,
+      session: response.data.session,
+      company: responseStore.data.data,
+    };
   }
 
   // Register new user with Better Auth
@@ -33,6 +48,18 @@ export class AuthService {
         email: userData.email,
         password: userData.password,
         name: userData.ownerName,
+      },
+      {
+        withCredentials: true, // Important for cookies
+      },
+    );
+    if (!response.data) {
+      throw new Error('Registration failed');
+    }
+
+    const responseStore = await axiosClient.post(
+      '/store',
+      {
         address: userData.address,
         storeName: userData.storeName,
         businessId: userData.businessId,
@@ -45,7 +72,15 @@ export class AuthService {
         withCredentials: true, // Important for cookies
       },
     );
-    return response.data;
+    if (!responseStore.data) {
+      throw new Error('Store creation failed');
+    }
+
+    return {
+      user: response.data.user,
+      session: response.data.session,
+      company: responseStore.data.data,
+    };
   }
 
   // Logout with Better Auth
@@ -65,10 +100,7 @@ export class AuthService {
   }
 
   // Get current session/user from Better Auth
-  static async getSession(): Promise<{
-    user: SessionUser;
-    session: Session;
-  } | null> {
+  static async getSession(): Promise<AuthResponse | null> {
     try {
       const response = await axiosClient.get<{
         user: SessionUser;
@@ -76,7 +108,16 @@ export class AuthService {
       }>('/auth/get-session', {
         withCredentials: true, // Important for cookies
       });
-      return response.data;
+
+      const responseStore = await axiosClient.get('/store/me', {
+        withCredentials: true, // Important for cookies
+      });
+
+      return {
+        user: response.data.user,
+        session: response.data.session,
+        company: responseStore.data.data,
+      };
     } catch (error) {
       console.log('Failed to get session:', error);
       return null;

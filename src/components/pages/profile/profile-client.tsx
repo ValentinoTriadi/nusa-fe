@@ -5,8 +5,7 @@ import { LogOut } from 'lucide-react';
 import { Loading } from '@/components/common/loading';
 import { Button } from '@/components/ui/button';
 
-import { useLogout } from '@/hooks/api/use-auth';
-import { useUser } from '@/hooks/use-session-data';
+import { useAuth, useLogout } from '@/hooks/api/use-auth';
 import { ProfileData } from '@/types/page/profile';
 
 import { Analytic } from './analytic';
@@ -16,7 +15,7 @@ import { Statistic } from './statistic';
 import { UserInformation } from './user-information';
 
 export const ProfileClient = () => {
-  const { user, isLoading } = useUser();
+  const { user, company, isLoading } = useAuth();
   const logout = useLogout();
 
   const handleLogout = () => {
@@ -42,7 +41,10 @@ export const ProfileClient = () => {
       <div className="bg-background flex min-h-screen w-full items-center justify-center">
         <div className="text-center">
           <p className="text-destructive">Unable to load profile</p>
-          <Button onClick={() => window.location.reload()} className="mt-2">
+          <Button
+            onClick={() => window.location.reload()}
+            className="mt-2 px-4 py-2 text-white"
+          >
             Retry
           </Button>
         </div>
@@ -53,13 +55,13 @@ export const ProfileClient = () => {
   // Create profile data from user session data
   const profileData: ProfileData = {
     id: user.id,
-    name: user.storeName || user.name,
-    category: user.businessType || 'Business',
+    name: company?.storeName || user.name,
+    category: company?.businessType || 'Business',
     rating: 4.8, // TODO: Get from API when available
     reviewCount: 24, // TODO: Get from API when available
     avatar: user.image || '/images/Hero.png',
-    address: `${user.address}, ${user.city}, ${user.province}`,
-    tags: ['Verified Business', user.businessType], // TODO: Get from API when available
+    address: `${user.address}, ${company?.city}, ${company?.province}`,
+    tags: ['Verified Business', company?.businessType || ''], // TODO: Get from API when available
     stats: {
       totalTransaksi: 156, // TODO: Get from API when available
       mitraAktif: 23, // TODO: Get from API when available
@@ -93,7 +95,7 @@ export const ProfileClient = () => {
         <Analytic {...profileData} />
 
         {/* User Information */}
-        <UserInformation user={user} />
+        <UserInformation user={user} company={company} />
 
         {/* Logout */}
         <Button
