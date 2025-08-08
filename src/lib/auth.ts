@@ -1,3 +1,4 @@
+import { createStore, getStoreOwned } from '@/api';
 import {
   LoginCredentials,
   Session,
@@ -26,8 +27,8 @@ export class AuthService {
       },
     );
 
-    const responseStore = await axiosClient.get('/store/me', {
-      withCredentials: true, // Important for cookies
+    const responseStore = await getStoreOwned({
+      withCredentials: true,
     });
     if (!response.data || !responseStore.data) {
       throw new Error('Login failed');
@@ -36,7 +37,7 @@ export class AuthService {
     return {
       user: response.data.user,
       session: response.data.session,
-      company: responseStore.data.data,
+      company: responseStore.data.data!,
     };
   }
 
@@ -57,9 +58,8 @@ export class AuthService {
       throw new Error('Registration failed');
     }
 
-    const responseStore = await axiosClient.post(
-      '/store',
-      {
+    const responseStore = await createStore({
+      body: {
         address: userData.address,
         storeName: userData.storeName,
         businessId: userData.businessId,
@@ -68,10 +68,8 @@ export class AuthService {
         province: userData.province,
         phoneNumber: userData.phoneNumber,
       },
-      {
-        withCredentials: true, // Important for cookies
-      },
-    );
+      withCredentials: true, // Important for cookies
+    });
     if (!responseStore.data) {
       throw new Error('Store creation failed');
     }
@@ -79,7 +77,7 @@ export class AuthService {
     return {
       user: response.data.user,
       session: response.data.session,
-      company: responseStore.data.data,
+      company: responseStore.data.data!,
     };
   }
 
@@ -109,14 +107,17 @@ export class AuthService {
         withCredentials: true, // Important for cookies
       });
 
-      const responseStore = await axiosClient.get('/store/me', {
-        withCredentials: true, // Important for cookies
+      const responseStore = await getStoreOwned({
+        withCredentials: true,
       });
+      if (!responseStore.data) {
+        throw new Error('Store retrieval failed');
+      }
 
       return {
         user: response.data.user,
         session: response.data.session,
-        company: responseStore.data.data,
+        company: responseStore.data.data!,
       };
     } catch (error) {
       console.log('Failed to get session:', error);

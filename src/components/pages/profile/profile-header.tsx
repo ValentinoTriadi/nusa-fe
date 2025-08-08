@@ -6,7 +6,7 @@ import { ProfileData } from '@/types/page/profile';
 
 export const ProfileHeader = (profileData: ProfileData) => {
   return (
-    <div className="relative rounded-br-3xl bg-gradient-to-br from-purple-500 to-purple-900 p-6 text-white">
+    <div className="relative rounded-br-[50px] bg-gradient-to-br from-purple-500 to-purple-900 p-6 text-white">
       <Link
         href={'/cart'}
         className="absolute top-6 right-4 z-10 flex aspect-square items-center gap-2 rounded-full !p-2 text-white"

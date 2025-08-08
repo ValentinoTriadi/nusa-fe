@@ -38,7 +38,7 @@ export const ProfileClient = () => {
   // Show error state if no user
   if (!user) {
     return (
-      <div className="bg-background flex min-h-screen w-full items-center justify-center">
+      <div className="bg-background flex h-screen w-full items-center justify-start overflow-y-scroll">
         <div className="text-center">
           <p className="text-destructive">Unable to load profile</p>
           <Button
@@ -79,7 +79,7 @@ export const ProfileClient = () => {
   };
 
   return (
-    <div className="bg-background flex min-h-screen w-full flex-col pb-16">
+    <div className="bg-background flex h-screen w-full flex-col overflow-y-scroll pb-16">
       {/* Header Section with Purple Background */}
       <ProfileHeader {...profileData} />
 

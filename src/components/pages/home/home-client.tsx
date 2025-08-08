@@ -27,24 +27,24 @@ export const HomeClient = () => {
   const companyName = company?.storeName || 'Perusahaan Anda';
 
   return (
-    <div className="bg-background flex min-h-screen w-full flex-col items-center gap-8 overflow-y-scroll pt-0 pb-20">
-      <div className="relative w-full max-w-md overflow-hidden rounded-br-3xl">
-        <Image
-          src="/images/Hero.png"
-          alt="Workshop background"
-          width={1920}
-          height={1080}
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute bottom-6 left-6 text-white">
-          <h1 className="mb-1 text-3xl font-semibold">
-            Selamat Pagi, {ownerName}
-          </h1>
-          <p className="text-lg opacity-90">{companyName}</p>
-        </div>
-      </div>
+    <div className="bg-background flex h-screen w-full flex-col items-center gap-8 overflow-y-scroll pt-0 pb-20">
       <div className="flex w-full flex-col items-center gap-8 px-4">
+        <div className="relative flex w-screen max-w-md overflow-hidden rounded-br-[50px]">
+          <Image
+            src="/images/Hero.png"
+            alt="Workshop background"
+            width={1920}
+            height={1080}
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute bottom-6 left-6 text-white">
+            <h1 className="mb-1 text-3xl font-semibold">
+              Selamat Pagi, {ownerName}
+            </h1>
+            <p className="text-lg opacity-90">{companyName}</p>
+          </div>
+        </div>
         {/* Stats Cards */}
         <StatsCards mitra={12} transaksi={8} kolaborasi={3} />
         {/* Action Buttons */}

@@ -1,3 +1,4 @@
+import { Store } from '@/api';
 import { z } from 'zod';
 
 export const sessionUserSchema = z.object({
@@ -22,25 +23,7 @@ export const sessionSchema = z.object({
   userAgent: z.string().nullable().optional(),
 });
 
-export const sessionCompanySchema = z.object({
-  id: z.string(),
-  userId: z.string(),
-  businessId: z.string(),
-  storeName: z.string(),
-  businessType: z.string(),
-  address: z.string(),
-  city: z.string(),
-  province: z.string(),
-  phoneNumber: z.string(),
-  postalCode: z.string().nullable().optional(),
-  businessDescription: z.string().nullable().optional(),
-  description: z.string().nullable().optional(),
-  tags: z.string().nullable().optional(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-});
-
-export type SessionCompany = z.infer<typeof sessionCompanySchema>;
+export type SessionCompany = Store;
 
 export type SessionUser = z.infer<typeof sessionUserSchema>;
 export type Session = z.infer<typeof sessionSchema>;
