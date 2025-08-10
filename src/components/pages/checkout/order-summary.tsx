@@ -13,7 +13,7 @@ export const OrderSummary = ({
       <div className="mb-3 flex items-center gap-2">
         <ScrollText className="text-accent h-7 w-7" />
         <h2 className="text-xl font-semibold text-gray-900">
-          Alamat Pengiriman
+          Ringkasan Pesanan
         </h2>
       </div>
       {orderItems.map((item) => (
